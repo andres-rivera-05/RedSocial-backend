@@ -39,5 +39,13 @@ CREATE Table tbl_comentario
     activo BOOLEAN DEFAULT true
 )
 
-
+---consulta getPublicacion
+SELECT 
+    p.id,
+    p.caption,
+    p.nombre_usuario
+FROM
+    tbl_publicacion AS p
+    JOIN tbl_usuarios AS u ON p.nombre_usuario = u.nombre_usuario
+ORDER BY p.fecha_post DESC;
 
