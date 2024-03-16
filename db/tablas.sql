@@ -19,11 +19,6 @@ CREATE Table tbl_usuarios (
     activo BOOLEAN DEFAULT true, constraint fk_id_rol Foreign Key (id_rol) REFERENCES tbl_rol (id)
 )
 
-INSERT INTO tbl_usuarios
-(nombre_usuario, correo_electronico, contrasena, nombre, apellido, id_rol)
-VALUES
-('David', 'david123@gmail.com','david123','david','rivera', 1);
-
 SELECT * FROM tbl_usuarios
 
 CREATE Table tbl_publicacion (

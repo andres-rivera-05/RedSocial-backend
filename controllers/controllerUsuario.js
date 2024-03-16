@@ -31,4 +31,29 @@ const getUsuario = async (req, res) => {
     res.json(resul)
 }
 
-export { postUsuario, getUsuario }
+const putUsuario = async (req, res) => {
+
+    try {
+        const { correo_electronico, nombre, apellido } = req.body;
+        const nombre_usuario = req.params.nombre_usuario;
+        const params = [correo_electronico, nombre, apellido, nombre_usuario];
+
+        const sql = `update tbl_usuarios
+                 set correo_electronico = $1,
+                    nombre = $2,
+                    apellido = $3
+                where nombre_usuario = $4 returning nombre_usuario, 'Usuario Actualizado con Exito' mensaje`;
+
+        const result = await db.query(sql, params);
+
+        if (result.length === 0) {
+            res.status(404).json({ mensaje: "El Usuario no Existe no puede se actulizado" })
+        } else {
+            res.status(200).json(result)
+        }
+    } catch (err) {
+        res.status(500).json({mensaje : err.message})
+    }
+}
+
+export { postUsuario, getUsuario, putUsuario }
