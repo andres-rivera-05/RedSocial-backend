@@ -7,6 +7,8 @@ CREATE Table tbl_rol (
     activo BOOLEAN DEFAULT true
 )
 
+SELECT * FROM tbl_rol
+
 CREATE Table tbl_usuarios (
     nombre_usuario VARCHAR(20) PRIMARY KEY, 
     correo_electronico VARCHAR(50), 
@@ -16,6 +18,13 @@ CREATE Table tbl_usuarios (
     id_rol int, 
     activo BOOLEAN DEFAULT true, constraint fk_id_rol Foreign Key (id_rol) REFERENCES tbl_rol (id)
 )
+
+INSERT INTO tbl_usuarios
+(nombre_usuario, correo_electronico, contrasena, nombre, apellido, id_rol)
+VALUES
+('David', 'david123@gmail.com','david123','david','rivera', 1);
+
+SELECT * FROM tbl_usuarios
 
 CREATE Table tbl_publicacion (
     id SERIAL PRIMARY KEY, 
@@ -34,4 +43,6 @@ CREATE Table tbl_comentario
     fecha_comentario TIMESTAMP DEFAULT current_timestamp,
     activo BOOLEAN DEFAULT true
 )
+
+
 
