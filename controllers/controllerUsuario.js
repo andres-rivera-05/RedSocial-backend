@@ -23,6 +23,7 @@ const postUsuario = async (req, res) => {
     } catch (err) {
         res.status(500).json({ mensaje: err.message });
     }
+
 }
 
 const getUsuario = async (req, res) => {
@@ -52,8 +53,30 @@ const putUsuario = async (req, res) => {
             res.status(200).json(result)
         }
     } catch (err) {
-        res.status(500).json({mensaje : err.message})
+        res.status(500).json({ mensaje: err.message })
     }
 }
 
-export { postUsuario, getUsuario, putUsuario }
+const deleteUsuario = async (req, res) => {
+    try {
+        const nombre_usuario = req.params.nombre_usuario;
+        const params = [nombre_usuario]
+        const sql = `update tbl_usuarios
+                    set activo = false
+                 where nombre_usuario = $1 returning nombre_usuario, 'Elimanado con exito' mensaje`;
+
+        const result = await db.query(sql, params);
+
+        if (result.length === 0) {
+            res.status(404).json({ mensaje: "El usuario a eliminar no existe" })
+        } else {
+            res.json(result)
+        }
+
+    } catch (err) {
+        res.status(500).json({ mensaje: err.message })
+    }
+
+}
+
+export { postUsuario, getUsuario, putUsuario, deleteUsuario }
