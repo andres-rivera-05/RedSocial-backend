@@ -19,7 +19,7 @@ CREATE Table tbl_usuarios (
     activo BOOLEAN DEFAULT true, constraint fk_id_rol Foreign Key (id_rol) REFERENCES tbl_rol (id)
 )
 
-SELECT * FROM tbl_usuarios
+SELECT * FROM tbl_usuarios  
 
 CREATE Table tbl_publicacion (
     id SERIAL PRIMARY KEY, 
@@ -28,6 +28,8 @@ CREATE Table tbl_publicacion (
     fecha_post TIMESTAMP DEFAULT current_timestamp, 
     activo BOOLEAN DEFAULT true
 )
+
+SELECT * FROM tbl_publicacion 
 
 CREATE Table tbl_comentario
 (
@@ -47,5 +49,5 @@ SELECT
 FROM
     tbl_publicacion AS p
     JOIN tbl_usuarios AS u ON p.nombre_usuario = u.nombre_usuario
-ORDER BY p.fecha_post DESC;
+ORDER BY p.fecha_post DESC; 
 

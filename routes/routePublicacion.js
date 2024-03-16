@@ -4,8 +4,11 @@ import { getPublicaion, postPublicacion, putPublicacion, deletePublicacion } fro
 
 publicacion.get('', getPublicaion)
 publicacion.post('', postPublicacion)
-publicacion.put('', putPublicacion)
-publicacion.delete('', deletePublicacion)
+publicacion.put('/:id', putPublicacion)
+publicacion.delete('/eliminar/:id', deletePublicacion)
 
 // GET:http://localhost:7000/api/publicacion
+// POST:http://localhost:7000/api/publicacion
+// PUT:http://localhost:7000/api/publicacion/:id
+// DELETE:http://localhost:7000/api/publicacion/eliminar/:id
 export { publicacion }
