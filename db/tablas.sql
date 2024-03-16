@@ -41,6 +41,11 @@ CREATE Table tbl_comentario
     activo BOOLEAN DEFAULT true
 )
 
+INSERT INTO tbl_comentario
+(caption, nombre_usuario, id_post)
+VALUES
+('Este es mi primer comentario', 'Jade', 2);
+
 ---consulta getPublicacion
 SELECT 
     p.id,
@@ -51,3 +56,14 @@ FROM
     JOIN tbl_usuarios AS u ON p.nombre_usuario = u.nombre_usuario
 ORDER BY p.fecha_post DESC; 
 
+--- get comentarios-publicacion
+SELECT
+    c.id AS comentario_id,
+    c.caption AS comentario_contenido,
+    c.fecha_comentario AS comentario_fecha,
+    u.nombre_usuario AS usuario_nombre
+FROM
+    tbl_comentario AS c
+    JOIN tbl_usuarios AS u ON c.nombre_usuario = u.nombre_usuario
+WHERE
+    c.id_post = 2;
