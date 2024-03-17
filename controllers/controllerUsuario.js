@@ -1,5 +1,25 @@
 import { db } from "../db/conn.js";
 
+
+const getAuth = async (req, res) => {
+
+    const { nombre_usuario, contrasena } = req.params;
+
+    const sql = `select nombre_usuario
+                from tbl_usuarios
+                where
+                    nombre_usuario = $1
+                    and contrasena = $2`;
+
+    const resul = await db.query(sql, [nombre_usuario, contrasena])
+
+    if(resul.length === 0){
+        res.status(401).json({ error: 'Contraseña o usuario incorrectos' });
+    }else{
+        res.json(resul)
+    }
+}
+
 const postUsuario = async (req, res) => {
 
     try {
@@ -79,4 +99,4 @@ const deleteUsuario = async (req, res) => {
 
 }
 
-export { postUsuario, getUsuario, putUsuario, deleteUsuario }
+export { postUsuario, getUsuario, putUsuario, deleteUsuario, getAuth }

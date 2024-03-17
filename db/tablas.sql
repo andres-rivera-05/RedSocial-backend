@@ -67,3 +67,10 @@ FROM
     JOIN tbl_usuarios AS u ON c.nombre_usuario = u.nombre_usuario
 WHERE
     c.id_post = 2;
+
+--getAutenticacion
+select nombre_usuario
+from tbl_usuarios
+where
+    nombre_usuario = 'Jade'
+    and contrasena = 'Jade2024';

@@ -22,27 +22,48 @@ const getComentarios = async (req, res) => {
 }
 
 const postComentario = async (req, res) => {
-  try{
-      const id = req.params.id;
-      console.log(id)
-      const { caption, nombre_usuario } = req.body;
-      const params = [caption, nombre_usuario, id]
 
-      const sql = `INSERT INTO tbl_comentario
+    try {
+        const id = req.params.id;
+        console.log(id)
+        const { caption, nombre_usuario } = req.body;
+        const params = [caption, nombre_usuario, id]
+
+        const sql = `INSERT INTO tbl_comentario
                 (caption, nombre_usuario, id_post)
                 VALUES
                 ($1, $2, $3) returning caption, nombre_usuario, 'comentario publicado' mensaje`;
 
-      const result = await db.query(sql, params)
-      res.json(result)
+        const result = await db.query(sql, params)
+        res.json(result)
 
-  }catch(err){
-    res.status(500).json({mensaje: err.message})
-  }
-  
+    } catch (err) {
+        res.status(500).json({ mensaje: err.message })
+    }
+
 }
 
-const putComentario = (req, res) => {
+const putComentario = async (req, res) => {
+    
+    try{
+        const id = req.params.id;
+        const { caption, nombre_usuario } = req.body;
+        const params = [caption, nombre_usuario, id];
+
+        const sql = `update tbl_comentario
+                    set caption = $1,
+                        nombre_usuario = $2
+                where id = $3 returning caption, 'comentario actualizado' mensaje`;
+
+        const result = await db.query(sql, params)
+        if(result.length === 0){
+            res.status(404).json({mensaje:"No existe el comentario"})
+        }else{
+            res.json(result)
+        }     
+    }catch(err){
+       res.status(500).json({mensaje: err.message})
+    }
 
 }
 
@@ -50,4 +71,4 @@ const deleteComentario = (req, res) => {
 
 }
 
-export { getComentarios, postComentario, putComentario, deleteComentario}
+export { getComentarios, postComentario, putComentario, deleteComentario }
