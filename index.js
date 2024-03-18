@@ -9,7 +9,7 @@ const PORT = 7000;
 // Middleware 
 app.use(Express.json());
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'http://192.168.1.42:5173'],
     Credentials: true,
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -19,6 +19,6 @@ app.use('/api/usuario', usuario)
 app.use('/api/publicacion', publicacion)
 app.use('/api/comentarios', comentarios)
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Escuchando en puerto ${PORT}`)
 });

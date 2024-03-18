@@ -23,11 +23,12 @@ SELECT * FROM tbl_usuarios
 
 CREATE Table tbl_publicacion (
     id SERIAL PRIMARY KEY, 
-    caption VARCHAR(250), 
+    caption TYPE TEXT, 
     nombre_usuario VARCHAR(20) REFERENCES tbl_usuarios (nombre_usuario), 
     fecha_post TIMESTAMP DEFAULT current_timestamp, 
     activo BOOLEAN DEFAULT true
 )
+
 
 SELECT * FROM tbl_publicacion 
 
@@ -45,6 +46,8 @@ INSERT INTO tbl_comentario
 (caption, nombre_usuario, id_post)
 VALUES
 ('Este es mi primer comentario', 'Jade', 2);
+
+SELECT * FROM tbl_comentario  
 
 ---consulta getPublicacion
 SELECT 
@@ -74,3 +77,6 @@ from tbl_usuarios
 where
     nombre_usuario = 'Jade'
     and contrasena = 'Jade2024';
+
+
+TRUNCATE TABLE tbl_publicacion

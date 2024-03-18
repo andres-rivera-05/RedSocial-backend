@@ -5,7 +5,8 @@ const getPublicaion = async (req, res) => {
     const sql = `SELECT 
                 p.id,
                 p.caption,
-                p.nombre_usuario
+                p.nombre_usuario,
+                TO_CHAR(p.fecha_post, 'YYYY-MM-DD') AS fecha_post
             FROM
                 tbl_publicacion AS p
                 JOIN tbl_usuarios AS u ON p.nombre_usuario = u.nombre_usuario

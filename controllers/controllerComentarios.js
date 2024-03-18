@@ -1,5 +1,15 @@
 import { db } from "../db/conn.js";
 
+
+const getComentarioEdit = async (req,res) => {
+    const id = req.params.id;
+    const params = [id]
+
+    const sql =`SELECT * FROM tbl_comentario WHERE id = $1;`
+    const result = await db.query(sql, params)
+    res.json(result)
+}
+
 const getComentarios = async (req, res) => {
 
     const id = req.params.id;
@@ -25,7 +35,6 @@ const postComentario = async (req, res) => {
 
     try {
         const id = req.params.id;
-        console.log(id)
         const { caption, nombre_usuario } = req.body;
         const params = [caption, nombre_usuario, id]
 
@@ -67,8 +76,13 @@ const putComentario = async (req, res) => {
 
 }
 
-const deleteComentario = (req, res) => {
+const deleteComentario = async (req, res) => {
+    const {id} = req.params;
+    const sql = `delete from tbl_comentario 
+                 WHERE id = $1 returning 'comentario eliminado' mensaje`;
+    const result = await db.query(sql, [id])     
+    res.json(result)      
 
 }
 
-export { getComentarios, postComentario, putComentario, deleteComentario }
+export { getComentarios, postComentario, putComentario, deleteComentario, getComentarioEdit }
