@@ -10,6 +10,8 @@ const getPublicaion = async (req, res) => {
             FROM
                 tbl_publicacion AS p
                 JOIN tbl_usuarios AS u ON p.nombre_usuario = u.nombre_usuario
+            WHERE
+                p.activo = true
             ORDER BY p.fecha_post DESC;`;
 
     const result = await db.query(sql)
@@ -85,7 +87,6 @@ const deletePublicacion = async (req, res) => {
     } catch (err) {
         res.status(500).json({ mensaje: err.message })
     }
-
 
 }
 
